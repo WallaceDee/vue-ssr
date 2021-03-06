@@ -1,0 +1,112 @@
+{
+  "name": "bz-font",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve --host 0.0.0.0 --copy --mode",
+    "build": "vue-cli-service build --mode",
+    "lint": "vue-cli-service lint",
+    "buildMain": "npm run build --production main",
+    "buildManage": "npm run build --production manage",
+    "buildWechat": "npm run build --production wechat",
+    "mainServe": "npm run serve main",
+    "manageServe": "npm run serve manage",
+    "wechatServe": "npm run serve wechat",
+    "build:client": "vue-cli-service build",
+    "build:server": "cross-env WEBPACK_TARGET=node vue-cli-service build --mode server",
+    "build:win": "npm run build:server && move dist\\vue-ssr-server-bundle.json bundle && npm run build:client && move bundle dist\\vue-ssr-server-bundle.json"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "core-js": "^3.6.4",
+    "js-md5": "^0.7.3",
+    "jsencrypt": "^3.0.0-rc.1",
+    "koa": "^2.13.1",
+    "koa-mount": "^4.0.0",
+    "koa-router": "^10.0.0",
+    "koa-static": "^5.0.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "swiper": "^5.3.6",
+    "view-design": "^4.1.3",
+    "vue": "^2.6.12",
+    "vue-lazyload": "^1.3.3",
+    "vue-router": "^3.1.5",
+    "vue-server-renderer": "^2.6.12",
+    "vuedraggable": "^2.23.2",
+    "vuex": "^3.1.2",
+    "x-photoswipe": "^4.1.3-rc.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.3.0",
+    "@vue/cli-plugin-eslint": "^3.5.0",
+    "@vue/cli-service": "^3.8.4",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-import": "^1.12.0",
+    "compression-webpack-plugin": "^3.0.0",
+    "cross-env": "^5.2.1",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.2.0",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-vue": "^4.0.0",
+    "iview-loader": "^1.2.2",
+    "lodash.merge": "^4.6.2",
+    "raw-loader": "^4.0.1",
+    "style-resources-loader": "^1.4.1",
+    "vue-loader": "^15.7.2",
+    "vue-server-renderer": "^2.6.12",
+    "vue-template-compiler": "^2.6.10",
+    "webpack-node-externals": "^2.5.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "standard"
+    ],
+    "rules": {
+      "vue/no-parsing-error": [
+        2,
+        {
+          "x-invalid-end-tag": false
+        }
+      ],
+      "vue/html-indent": "off",
+      "no-var": "error",
+      "generator-star-spacing": "off",
+      "spaced-comment": "off",
+      "indent": "off",
+      "eol-last": "off",
+      "space-before-function-paren": "off",
+      "comma-spacing": "off",
+      "key-spacing": "off",
+      "space-before-blocks": "off",
+      "no-mixed-spaces-and-tabs": "off",
+      "no-tabs": "off",
+      "space-infix-ops": "off",
+      "no-undef": "off",
+      "no-useless-escape": "off",
+      "handle-callback-err": "off",
+      "keyword-spacing": "off",
+      "no-new": "off",
+      "no-extend-native": "off",
+      "no-mixed-operators": "off"
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  }
+}
