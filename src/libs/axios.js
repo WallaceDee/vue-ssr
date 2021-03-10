@@ -28,10 +28,7 @@ class HttpRequest {
 }
   getInsideConfig () {
     const config = {
-      baseURL: this.baseUrl,
-      headers: {
-        Authorization:localStorage.getItem('token')
-      }
+      baseURL: this.baseUrl
     }
     return config
   }

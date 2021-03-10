@@ -13,7 +13,7 @@
       <!-- <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>-->
     </div>
-    <button class="get-consult-btn" @click="go2Consult">获取解决方案</button>
+    <router-link :to="{name:'Consult'}" class="get-consult-btn" >获取解决方案</router-link>
   </div>
 </template>
 <script>
@@ -28,11 +28,11 @@ export default {
     }
   },
   methods: {
-    go2Consult() {
-      this.$router.push({
-        name: 'Consult'
-      })
-    },
+    // go2Consult() {
+    //   this.$router.push({
+    //     name: 'Consult'
+    //   })
+    // },
     init() {
       new Swiper('.banner-wrapper', {
         loop: true,
@@ -87,7 +87,8 @@ export default {
       opacity: 1;
     }
   }
-  button {
+  a.get-consult-btn {
+    display:block;
     transition: all 0.2s;
     background-color: rgba(255, 255, 255, 0.5);
     border: none;

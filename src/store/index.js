@@ -9,6 +9,7 @@ export function createStore() {
       productMenu:[],
       copyright:'',
       setting:{},
+      headElements:[],
       tel:'',
       serviceHours:'',
       width:0,//document.body.clientWidth
@@ -33,6 +34,7 @@ export function createStore() {
         state.data=payload.data
         state.description=payload.description
         state.wechatQrCode=payload.wechatQrCode
+        state.headElements=payload.headElements
       }
     },
     actions: {},

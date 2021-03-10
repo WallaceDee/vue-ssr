@@ -9,10 +9,16 @@
 </template>
 <script>
 import { getSetting, getProductMenu } from '../api/'
+import { getMetaInfoByPath } from '../libs/util.js'
+import tdks from '../../public/tdk.json'
+let currentTdk=getMetaInfoByPath(tdks,'index')
+console.log(currentTdk)
 export default {
   name: 'Index',
+   metaInfo:currentTdk ,
   data() {
     return {
+      metaInfo:{},
       setting: {
         address:[],
         relatedLinks:[]
@@ -33,12 +39,12 @@ export default {
       getSetting().then(res => {
         if (res.status) {
           this.setting = res.data
-           this.$store.commit('setSetting', this.setting)
+          this.$store.commit('setSetting', this.setting)
         }
       })
     }
   },
-  mounted() {
+  created () {
     this.getSetting()
     this.getProductMenu()
   }

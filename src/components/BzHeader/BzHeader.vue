@@ -18,8 +18,10 @@
             v-for="(item,index) in navs"
             :key="item.subLabel"
           >
+          <router-link :to="index !== 1?{name:navs[index].name}:{name:navs[index].name,params: {type: 1}}">
             <h1>{{item.label}}</h1>
             <p>{{item.subLabel}}</p>
+            </router-link>
             <transition name="fade">
               <ul class="sub-list" v-if="item.children" v-show="lastIndex===index&&over">
                 <li
@@ -28,14 +30,29 @@
                   :key="subNav.label"
                   @click.stop="onSubTitleClick(`${index}-${index1}`)"
                 >
+                <router-link :to="{
+                      name: 'Products',
+                      params: {
+                        type: `${index}-${index1}`.split('-')[1] * 1 + 1
+                      }
+                    }">
                   <h2>{{subNav.label}}</h2>
+                  </router-link>
                   <ul>
                     <li
                       :class="{'active':currentIndex[1]===index1&&currentIndex[2]===index2}"
                       @click.stop="onSubMenuClick(`${index}-${index1}-${index2}`)"
                       v-for="(subItem,index2) in subNav.children"
                       :key="subItem.label"
-                    >{{subItem.label}}</li>
+                    >   <router-link :to="{
+        name: 'Products',
+        params: {
+          type: `${index}-${index1}-${index2}`.split('-')[1] * 1 + 1
+        },
+        query: {
+          activeId: `${index}-${index1}-${index2}`.split('-')[2]
+        }
+      }">{{subItem.label}} </router-link></li>
                   </ul>
                 </li>
               </ul>
@@ -153,45 +170,39 @@ export default {
       this.over = false
       this.currentName = name
       this.collapsed = true
-      this.$router.push({
-        name: 'Products',
-        params: {
-          type: name.split('-')[1] * 1 + 1
-        }
-      })
+      // this.$router.push()
     },
     onSubMenuClick(name) {
       this.over = false
       this.currentName = name
       this.collapsed = true
-      this.$router.push({
-        name: 'Products',
-        params: {
-          type: name.split('-')[1] * 1 + 1
-        },
-        query: {
-          activeId: name.split('-')[2]
-        }
-      })
+      // this.$router.push({
+      //   name: 'Products',
+      //   params: {
+      //     type: name.split('-')[1] * 1 + 1
+      //   },
+      //   query: {
+      //     activeId: name.split('-')[2]
+      //   }
+      // })
     },
     onClick(index) {
       this.currentName = index.toString()
-      if (this.navs[index].children && this.navs[index].children.length) {
-      } else {
+      if (!this.navs[index].children || !this.navs[index].children.length) {
         this.collapsed = true
       }
-      if (index !== 1) {
-        this.$router.push({
-          name: this.navs[index].name
-        })
-      } else {
-        this.$router.push({
-          name: this.navs[index].name,
-          params: {
-            type: 1
-          }
-        })
-      }
+      // if (index !== 1) {
+      //   return {
+      //     name: this.navs[index].name
+      //   }
+      // } else {
+      //   return {
+      //     name: this.navs[index].name,
+      //     params: {
+      //       type: 1
+      //     }
+      //   }
+      // }
     },
     onMouseleave() {
       let lis = document.querySelectorAll('.nav>ul>li')
@@ -264,11 +275,16 @@ export default {
           color: #fff;
           text-align: center;
           float: left;
-          padding-right: 30px;
-          padding-left: 30px;
-          padding-top: 25px;
           height: 99px;
-          &.active {
+          >a{
+            display:block;
+            color:#fff;
+            padding-right: 30px;
+            padding-left: 30px;
+            padding-top: 25px;
+            height: 100%;
+          }
+          &.active a{
             // background-color: rgba(0, 0, 0, .5);
             > h1,
             > p {
@@ -301,7 +317,6 @@ export default {
         > li {
           text-align: left;
           float: left;
-
           h2 {
             padding-top: 10px;
             font-weight: normal;
@@ -309,6 +324,7 @@ export default {
             border-bottom: 1px solid #fff;
             line-height: 40px;
             padding-left: 15px;
+            color:#fff;
           }
           &.active h2 {
             border-bottom-color: #00afb7;
@@ -323,6 +339,9 @@ export default {
               line-height: 32px;
               padding-left: 15px;
               padding-right: 15px;
+              a{
+                color:#fff;
+              }
               &:hover,
               &.active {
                 background-color: #00afb7;
@@ -388,29 +407,30 @@ export default {
           overflow: auto;
           padding-left: 40px;
           align-items: center;
-          > h1 {
-            float: left;
-            height: 60px;
-            line-height: 60px;
-            font-size: 18px;
-            font-weight: normal;
-            margin-right: 15px;
-          }
-          > p {
-            float: left;
-
-            height: 60px;
-            line-height: 60px;
-            font-size: 16px;
-          }
+          >a{
+             color: #fff;
+            > h1 {
+              float: left;
+              height: 60px;
+              line-height: 60px;
+              font-size: 18px;
+              font-weight: normal;
+              margin-right: 15px;
+            }
+            > p {
+              float: left;
+              height: 60px;
+              line-height: 60px;
+              font-size: 16px;
+            }
+            }
           .sub-list {
             clear: both;
-
             h2 {
               line-height: 40px;
               padding-left: 10px;
               font-size: 15px;
-              color: rgba(255, 255, 255, 0.5);
+              color: rgba(255, 255, 255, 0.5)!important;
               font-weight: normal;
             }
             ul > li {
@@ -418,6 +438,9 @@ export default {
               font-size: 15px;
               padding-left: 30px;
               color: rgba(255, 255, 255, 0.5);
+              a{
+                color:#fff;
+              }
             }
           }
         }

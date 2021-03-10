@@ -6,8 +6,19 @@
   </div>
 </template>
 <script>
+import a from '../public/static/1.json'
+console.log(a)
 export default{
   name:'App',
+  metaInfo: {
+        meta:[{ charset: 'utf-8' },
+      { 'http-equiv': 'X-UA-Compatible',content:'IE=edge' },
+      { name: 'viewport',content:'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no' },
+      ],
+      link:[{
+        rel:'icon',href:'/favicon.ico'
+      }]
+    },
   mounted(){
     this.$store.commit('setWidth',document.body.clientWidth)
     window.addEventListener('resize', () => {

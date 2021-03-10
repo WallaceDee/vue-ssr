@@ -545,3 +545,23 @@ export const initWebp = function() {
         testImage.src = webpSrc
     })
 }
+
+// console.log(setTitle)
+export const getMetaInfoByPath = function(array,path) {
+    for (let index = 0; index < array.length; index++) {
+        const current = array[index]
+        if(path===current.path){
+            return {
+                title:current.title,
+                meta:[{
+                    name:'description',
+                    content:current.description
+                },{
+                    name:'keywords',
+                    content:current.keywords
+                }],
+                script:[{innerHTML:current.script, type: 'text/javascript'},{src:'1111', type: 'text/javascript'}]
+            }
+        }
+    }
+}

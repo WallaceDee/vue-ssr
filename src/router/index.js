@@ -8,8 +8,10 @@ import NewsDetail from'../views/News/Detail.vue'
 import AboutUs from '../views/AboutUs.vue'
 import Consult from '../views/Consult.vue'
 import Router from 'vue-router'
-Vue.use(Router)
+import Meta from 'vue-meta'
 
+Vue.use(Router)
+Vue.use(Meta)
 const routes = [
   {
     path: '/',

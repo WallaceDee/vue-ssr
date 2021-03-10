@@ -13,16 +13,52 @@ const { createBundleRenderer } = require("vue-server-renderer");
 const bundle = require("./dist/vue-ssr-server-bundle.json");
 const clientManifest = require("./dist/vue-ssr-client-manifest.json");
 
-const renderer = createBundleRenderer(bundle, {
+const renderer = createBundleRenderer(bundle
+  , {
   runInNewContext: false,
   template: fs.readFileSync(resolve("./public/index.temp.html"), "utf-8"),
   clientManifest: clientManifest
-});
+}
+);
 
 function renderToString(context) {
   return new Promise((resolve, reject) => {
     renderer.renderToString(context, (err, html) => {
-      err ? reject(err) : resolve(html);
+      if(err){
+        reject(err)
+      }{
+        const {
+          title, htmlAttrs, headAttrs, bodyAttrs, link,
+          style, script, noscript, meta
+        } = context.meta.inject()
+        resolve(`
+        <!doctype html>
+        <html ${htmlAttrs.text(true)}>
+          <head ${headAttrs.text()}>
+            ${meta.text()}
+            ${title.text()}
+            ${link.text()}
+            ${style.text()}
+            ${script.text()}
+            ${noscript.text()}
+          </head>
+          <body ${bodyAttrs.text()}>
+            <!-- prepended metaInfo properties -->
+            ${style.text({ pbody: true })}
+            ${script.text({ pbody: true })}
+            ${noscript.text({ pbody: true })}
+  
+            <!-- app -->
+            ${html}
+  
+            <!-- appended metaInfo properties -->
+            ${style.text({ body: true })}
+            ${script.text({ body: true })}
+            ${noscript.text({ body: true })}
+          </body>
+        </html>
+      `);
+      }
     });
   });
 }
@@ -37,7 +73,7 @@ app.use(async (ctx, next) => {
   ctx.body = html;
 });
 
-const port = 3000;
+const port = 89;
 app.listen(port, function() {
   console.log(`server started at localhost:${port}`);
 });

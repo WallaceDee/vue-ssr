@@ -3,14 +3,19 @@
     <Spin fix v-if="loading"></Spin>
     <div class="content">
       <div class="top">
-        <div class="latest" @click="go2Detail(latest.id)">
+        <router-link class="latest" :to="{
+            name: 'NewsDetail',
+            params: {
+              id:latest.id
+            }
+          }">
           <span :style="`background-image:url(${latest.cover})`"></span>
           <div class="info">
             <h2>{{getDate(latest.createTime,'mmdd','-')}}</h2>
             <h1>{{latest.title}}</h1>
             <p class="article" v-html="latest.content.replace(/<.*?>/g,'').substr(0,300)"></p>
           </div>
-        </div>
+        </router-link>
         <div class="qr-code">
           <img :src="wechatQrCode" alt="小程序二维码" />
           <h1>免费订阅</h1>
@@ -19,7 +24,13 @@
         </div>
       </div>
       <ul>
-        <li :id="`item-${index}`" v-for="(item,index) in list" @click="go2Detail(item.id)" v-if="index">
+        <li :id="`item-${index}`" v-for="(item,index) in list" v-if="index">
+        <router-link :to="{
+            name: 'NewsDetail',
+            params: {
+              id:item.id
+            }
+          }">
           <span :style="`background-image:url(${item.cover})`"></span>
           <div class="info">
             <div>
@@ -30,6 +41,7 @@
               <span>{{getDate(item.createTime,'mmdd','-')}}</span>
             </div>
           </div>
+          </router-link>
         </li>
       </ul>
       <Button v-if="!allLoaded" class="more-btn" @click.native="loadMore">点击加载更多</Button>
@@ -67,9 +79,9 @@ export default {
     }
     },
     watch:{
-          '$route.query.activeId'(val) {
+      '$route.query.activeId'(val) {
         this.scrollIntoView(`item-${val}`)
-}
+      }
     },
   methods: {
     scrollIntoView(id) {
@@ -81,14 +93,14 @@ export default {
       this.page++
       this.getData(1)
     },
-    go2Detail(id) {
-      this.$router.push({
-        name: 'NewsDetail',
-        params: {
-          id
-        }
-      })
-    },
+    // go2Detail(id) {
+    //   this.$router.push({
+    //     name: 'NewsDetail',
+    //     params: {
+    //       id
+    //     }
+    //   })
+    // },
     onPageChange(page) {
       this.page = page
       this.getData()
@@ -130,9 +142,7 @@ export default {
   overflow: auto;
   > ul {
     list-style: none;
-    li {
-      border-radius: 3px;
-      background-color: #fff;
+    li a{
       > span {
         display: block;
         background-size: cover;
@@ -171,7 +181,11 @@ export default {
           }
         }
       }
-      &:nth-child(odd) {
+    }
+    li{
+      border-radius: 3px;
+      background-color: #fff;
+        &:nth-child(odd) a{
         > .info,
         > span {
           float: right;
@@ -321,12 +335,7 @@ export default {
     > ul {
       list-style: none;
       margin-top: 40px;
-      li {
-        cursor: pointer;
-        background-color: #fff;
-        height: 200px;
-        margin-bottom: 40px;
-        padding: 15px 20px;
+      li a{
         > span {
           display: block;
           width: 260px;
@@ -372,7 +381,14 @@ export default {
             }
           }
         }
-        &:nth-child(odd) {
+      }
+      li{
+        cursor: pointer;
+        background-color: #fff;
+        height: 200px;
+        margin-bottom: 40px;
+        padding: 15px 20px;
+          &:nth-child(odd) a{
           > .info,
           > span {
             float: right;
@@ -421,10 +437,7 @@ export default {
       display: none;
     }
     > ul {
-      li {
-        padding: 20px 10px;
-        height: 110px;
-        margin-bottom: 15px;
+      li a{
         > span {
           width: 26%;
           height: 70px;
@@ -465,7 +478,12 @@ export default {
             -webkit-line-clamp: 2;
           }
         }
-        &:nth-child(odd) {
+      }
+      li{
+          padding: 20px 10px;
+        height: 110px;
+        margin-bottom: 15px;
+        &:nth-child(odd) a{
           > .info {
             padding-right: 15px;
             > div:last-child span:after {

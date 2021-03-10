@@ -58,15 +58,11 @@
           <div>
             <div v-for="item in sitemap" :key="item.label" :title="item.label">
               <h2 :class="{'underline':item.children}">
-                <a @click="onTitleClick(item)" href="javascript:void 0">{{item.label}}</a>
+              <router-link  :title="item.label" :to="onTitleClick(item)">{{item.label}}</router-link>
               </h2>
               <ul v-if="item.children">
                 <li v-for="(site,index) in item.children" :key="site.label">
-                  <a
-                    :title="site.label"
-                    @click.stop="onSubItmeClick(site,index)"
-                    href="javascript:void 0"
-                  >{{site.label}}</a>
+                <router-link  :title="site.label" :to="onSubItmeClick(site,index)">{{site.label}}</router-link>
                 </li>
               </ul>
             </div>
@@ -142,7 +138,7 @@ export default {
       defaultSitemap: [
         {
           label: '专利情报',
-          name: 'News'
+          name: 'NewsList'
         },
         {
           label: '关于我们',
@@ -234,28 +230,28 @@ export default {
     },
     onTitleClick(item) {
       if (item.name) {
-        this.$router.push({
+        return {
           name: item.name
-        })
+        }
       } else {
-        this.$router.push({
+       return {
           name: 'Products',
           params: {
             type: item.type
           }
-        })
+        }
       }
     },
     onSubItmeClick(item, index) {
       if (item.name) {
-        this.$router.push({
+        return {
           name: item.name,
           query: {
             activeId: item.activeId||index
           }
-        })
+        }
       } else {
-        this.$router.push({
+        return {
           name: 'Products',
           params: {
             type: item.type
@@ -263,7 +259,7 @@ export default {
           query: {
             activeId: index
           }
-        })
+        }
       }
     }
   },

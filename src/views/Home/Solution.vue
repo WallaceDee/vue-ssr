@@ -10,11 +10,19 @@
     </ul>
     <div class="swiper-container solution-swiper">
       <div class="swiper-wrapper">
-        <div
+        <router-link
           class="swiper-slide"
           v-for="(item,index) in list"
           :key="item.id"
-           @click="go2Product(index)"
+          :to="{
+              name: 'Products',
+              params: {
+                type: '1'
+              },
+              query: {
+                activeId: index
+              }
+            }"
         >
           <span class="cover swiper-no-swiping" :style="`background-image:url(${item.cover})`"></span>
           <em class="swiper-no-swiping"></em>
@@ -30,7 +38,7 @@
               </div>
             </div>
           </transition>
-        </div>
+        </router-link>
       </div>
     </div>
     <ul class="solution-list">
@@ -171,6 +179,7 @@ export default {
   margin: 12px 0;
 
   .swiper-slide {
+    display:block;
     cursor: pointer;
     > .cover {
       position: relative;
@@ -197,6 +206,7 @@ export default {
       padding: 10px 20px 0 20px;
       background-repeat: no-repeat;
      &:after {
+        color:#515a6e;
         content: "→MORE";
         display: block;
         font-size: 12px;
@@ -212,14 +222,14 @@ export default {
         margin-bottom: 5px;
       }
       > p{
+        color:#515a6e;
         height: 66px;
-           overflow: hidden;
+        overflow: hidden;
         text-overflow: ellipsis;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         display: -webkit-box;
         position: relative;
-
       }
       > p,
       h1 {
@@ -361,6 +371,7 @@ export default {
           display: block;
           font-size: 12px;
           margin-top: 5px;
+          color:#515a6e;
         }
         img {
           height: 35%;

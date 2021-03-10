@@ -2,11 +2,21 @@
     <Block :value="blockInfo">
       <div class="basic-products" v-lazy:background-image="$store.state.width>640?require('../../assets/images/basic_products_bg.png'):require('../../assets/images/basic_products_bg_m.png')">
         <ul>
-          <li v-for="(item,index) in list" :key="item.id" @click="go2Product(index)">
-            <span v-lazy:background-image="item.icon"></span>
-            <h3>{{item.label}}</h3>
-            <pre>{{item.description}}</pre>
-            <div class="bg" v-lazy:background-image="item.icon"></div>
+          <li v-for="(item,index) in list" :key="item.id">
+            <router-link :to="{
+                                name:'Products',
+                                params:{
+                                  type:'2'
+                                },
+                                query:{
+                                  activeId:index
+                                }
+                              }"> 
+              <span v-lazy:background-image="item.icon"></span>
+              <h3>{{item.label}}</h3>
+              <pre>{{item.description}}</pre>
+              <div class="bg" v-lazy:background-image="item.icon"></div>
+            </router-link>
           </li>
         </ul>
       </div>
@@ -29,21 +39,21 @@ export default {
         return []
       }
     }
-  },
-  methods:{
-    go2Product(index){
-      this.$router.push({
-        name:'Products',
-        params:{
-          type:'2'
-        },
-        query:{
-          activeId:index
-        }
-      })
-    }
-  },
-  mounted() {}
+  }
+  // ,methods:{
+  //   go2Product(index){
+  //     this.$router.push({
+  //       name:'Products',
+  //       params:{
+  //         type:'2'
+  //       },
+  //       query:{
+  //         activeId:index
+  //       }
+  //     })
+  //   }
+  // },
+  // mounted() {}
 }
 </script>
 <style lang="less" scoped>
@@ -90,6 +100,7 @@ export default {
     text-overflow: ellipsis;
     }
     pre {
+      color:rgb(81, 90, 110);
       font-size: 16px;
       font-family: "Helvetica Neue", Helvetica, "PingFang SC",
         "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
@@ -116,7 +127,7 @@ export default {
           background-size: 120%;
           background-position: 70px 90px;
         }
-        > span {
+         span {
           margin-top: 30px;
           display: block;
           height: 70px;
@@ -163,17 +174,17 @@ export default {
           background-size: 100%;
           background-position: 90px 65px;
         }
-        > span {
+         span {
           margin-top: 15px;
 
           height: 60px;
           width: 60px;
         }
-        > h3 {
+         h3 {
           font-size: 15px;
           margin-top: 5px;
         }
-        > pre {
+         pre {
           font-size: 14px;
           line-height: 20px;
           margin: 10px 0;

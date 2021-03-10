@@ -1,7 +1,13 @@
 <template>
     <Block :value="blockInfo">
       <div class="news">
-        <div class="latest" @click="go2Detail(latest.id)">
+      <router-link :to="{
+        name: 'NewsDetail',
+        params: {
+          id:latest.id
+        }
+      }">
+        <div class="latest" >
           <div class="inner">
             <h4>{{getDate(latest.createTime,'mmdd','-')}}</h4>
             <h3>{{latest.title}}</h3>
@@ -10,14 +16,22 @@
             <em class="more">→ MORE</em>
           </div>
         </div>
+        </router-link>
         <div class="list">
           <ul>
-            <li @click="go2Detail(item.id)" v-for="(item,index) in list" v-if="index&&index<4" :key="item.id">
+            <li v-for="(item,index) in list" v-if="index&&index<4" :key="item.id">
+              <router-link :to="{
+                name: 'NewsDetail',
+                params: {
+                  id:item.id
+                }
+              }">
               <h3>
                 {{item.title}}
                 <span>{{getDate(item.createTime,'mmdd','-')}}</span>
               </h3>
               <p class="article" v-html="item.content.replace(/<.*?>/g,'').substr(0,200)"></p>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -52,14 +66,6 @@ export default {
     }
   },
   methods: {
-    go2Detail(id) {
-      this.$router.push({
-        name: 'NewsDetail',
-        params: {
-          id
-        }
-      })
-    },
     getDate
   },
   mounted() {
@@ -108,6 +114,15 @@ export default {
   }
   .list {
     li {
+      &:hover {
+         h3 {
+          color: #00afb7;
+        }
+         p:after {
+          color: #00afb7;
+          right: 0;
+        }
+      }
       position: relative;
       &:after {
         position: absolute;
@@ -123,7 +138,7 @@ export default {
         transform-origin: 50% 0;
         background-color: #e7e7e7;
       }
-      > p {
+      p {
         overflow: hidden;
         text-overflow: ellipsis;
         -webkit-line-clamp: 2;
@@ -137,23 +152,15 @@ export default {
           bottom: 40px;
           transition: right 0.5s;
         }
-      }
-      > h3 {
+       h3 {
         margin-bottom: 10px;
         > span {
           font-weight: normal;
           float: right;
         }
       }
-      &:hover {
-        > h3 {
-          color: #00afb7;
-        }
-        > p:after {
-          color: #00afb7;
-          right: 0;
-        }
-      }
+
+     }
     }
   }
 }
@@ -193,9 +200,11 @@ export default {
           margin-top: 10px;
         }
         h4 {
+          color:#515a6e;
           font-size: 20px;
         }
         h3 {
+          color:#515a6e;
           margin-top: 10px;
           margin-bottom: 10px;
         }
@@ -228,6 +237,16 @@ export default {
       width: 55%;
       padding-left: 50px;
       li {
+         &:hover {
+           color: #00afb7;
+           h3 {
+            color: #00afb7;
+          }
+           p:after {
+            color: #00afb7;
+            right: 0;
+          }
+        }
         cursor: pointer;
         min-height: 120px;
         position: relative;
@@ -246,7 +265,7 @@ export default {
           transform-origin: 50% 0;
           background-color: #e7e7e7;
         }
-        > p {
+        p {
           padding-right: 100px;
           overflow: hidden;
           height: 44px;
@@ -256,25 +275,17 @@ export default {
             right: 20px;
             bottom: 20px;
             transition: right 0.5s;
-          }
-        }
-        > h3 {
+          }}
+       
+         h3 {
+          color:#515a6e;
           margin-bottom: 10px;
           > span {
             font-weight: normal;
             float: right;
           }
         }
-        &:hover {
-           color: #00afb7;
-          > h3 {
-            color: #00afb7;
-          }
-          > p:after {
-            color: #00afb7;
-            right: 0;
-          }
-        }
+
       }
     }
   }
@@ -299,6 +310,7 @@ export default {
           color: #858585;
         }
         h3 {
+          color:#515a6e;
           margin-top: 10px;
           margin-bottom: 10px;
         }
@@ -322,7 +334,7 @@ export default {
       }
       li {
         padding: 15px 15px 15px 0;
-        > p {
+        p {
           height: 44px;
           padding-right: 50px;
           &:after {
@@ -330,6 +342,7 @@ export default {
           }
         }
         h3 {
+          color:#515a6e;
           span {
             font-size: 14px;
           }
