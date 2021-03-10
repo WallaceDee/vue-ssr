@@ -32,8 +32,10 @@
             </div>
           </div>
         </div>
-          <Arrow v-show="zoomStatus" class="prev" type="left" :size="28"></Arrow>
-          <Arrow v-show="zoomStatus" class="next" :size="28"></Arrow>
+        <div v-show="zoomStatus"> 
+          <Arrow class="prev" type="left" :size="28"></Arrow>
+          <Arrow class="next" :size="28"></Arrow>
+        </div>
       </div>
     </Title>
     <Title id="item-2" :title="{label:'专业团队',subTitle:'OUR TEAM'}">

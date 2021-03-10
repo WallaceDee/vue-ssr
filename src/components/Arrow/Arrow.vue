@@ -1,5 +1,5 @@
 <template>
-      <span class="arrow" :class="[type]" :style="`background-color: ${bg};width:${size}px;height:${size}px;background-size: ${size}px`"></span>
+  <span class="arrow" :class="[type]" :style="'display: block;background-color:'+bg+';width:'+size+'px;height:'+size+'px;background-size:'+size+'px'"></span>
 </template>
 <script>
 export default {
@@ -25,7 +25,6 @@ export default {
       outline: none;
       cursor: pointer;
       position: relative;
-      display: block;
       border-radius: 50%;
       &:after {
         content: " ";
