@@ -12,7 +12,6 @@ import { getSetting, getProductMenu } from '../api/'
 import { getMetaInfoByPath } from '../libs/util.js'
 import tdks from '../../public/tdk.json'
 let currentTdk=getMetaInfoByPath(tdks,'index')
-console.log(currentTdk)
 export default {
   name: 'Index',
    metaInfo:currentTdk ,

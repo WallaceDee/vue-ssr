@@ -32,7 +32,7 @@
             </div>
           </div>
         </div>
-        <div v-show="zoomStatus"> 
+        <div v-show="zoomStatus">
           <Arrow class="prev" type="left" :size="28"></Arrow>
           <Arrow class="next" :size="28"></Arrow>
         </div>

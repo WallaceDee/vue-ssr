@@ -3,14 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node server.js",
+    "start": "node bz-home-ssr.js",
     "serve": "vue-cli-service serve --host 0.0.0.0 --copy --mode",
     "build": "vue-cli-service build --mode",
     "lint": "vue-cli-service lint",
     "build:client": "vue-cli-service build",
     "build:server": "cross-env WEBPACK_TARGET=node vue-cli-service build --mode server",
-    "build:linux": "mv dist/tdk.{txt,xml,json} public/ && npm run build:server && mv dist/vue-ssr-server-bundle.json bundle && npm run build:client && mv bundle dist/vue-ssr-server-bundle.json && pm2 restart bz-home-ssr",
-    "build:win": "npm run build:server && move dist\\vue-ssr-server-bundle.json bundle && npm run build:client && move bundle dist\\vue-ssr-server-bundle.json"
+    "build:linux": "npm run build:server && mv dist/vue-ssr-server-bundle.json bundle && npm run build:client && mv bundle dist/vue-ssr-server-bundle.json && pm2 restart bz-home-ssr",
+    "build:win": "npm run build:server && move dist\\vue-ssr-server-bundle.json bundle && npm run build:client && move bundle dist\\vue-ssr-server-bundle.json",
+    "prod":"npm run build:linux"
   },
   "dependencies": {
     "axios": "^0.19.0",

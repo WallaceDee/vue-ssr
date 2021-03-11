@@ -276,7 +276,6 @@ export default {
             bottom: 20px;
             transition: right 0.5s;
           }}
-       
          h3 {
           color:#515a6e;
           margin-bottom: 10px;
@@ -285,7 +284,6 @@ export default {
             float: right;
           }
         }
-
       }
     }
   }

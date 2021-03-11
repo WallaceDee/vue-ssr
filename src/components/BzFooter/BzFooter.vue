@@ -265,7 +265,7 @@ export default {
   },
   mounted() {
     let cityInfo=document.createElement('script')
-    cityInfo.src='http://pv.sohu.com/cityjson?ie=utf-8'
+    cityInfo.src='https://pv.sohu.com/cityjson?ie=utf-8'
     cityInfo.onload=function () {
       console.log(returnCitySN)
     }

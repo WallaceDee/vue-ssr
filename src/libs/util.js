@@ -559,7 +559,6 @@ export const getMetaInfoByPath = function(array,path) {
             }
             if(current.script){
                 script.push({innerHTML:current.script,body:true, type: 'text/javascript'})
-               
             }
             return {
                 __dangerouslyDisableSanitizers: ['script'],
