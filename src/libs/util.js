@@ -551,7 +551,18 @@ export const getMetaInfoByPath = function(array,path) {
     for (let index = 0; index < array.length; index++) {
         const current = array[index]
         if(path===current.path){
+            let script=[]
+            if(current.externalsScript){
+                current.externalsScript.split('\n').forEach((src)=>{
+                    script.push({src,body:true, type: 'text/javascript'})
+                })
+            }
+            if(current.script){
+                script.push({innerHTML:current.script,body:true, type: 'text/javascript'})
+               
+            }
             return {
+                __dangerouslyDisableSanitizers: ['script'],
                 title:current.title,
                 meta:[{
                     name:'description',
@@ -560,7 +571,7 @@ export const getMetaInfoByPath = function(array,path) {
                     name:'keywords',
                     content:current.keywords
                 }],
-                script:[{innerHTML:current.script, type: 'text/javascript'},{src:'1111', type: 'text/javascript'}]
+                script
             }
         }
     }

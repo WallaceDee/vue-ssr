@@ -47,10 +47,8 @@ function renderToString(context) {
             ${style.text({ pbody: true })}
             ${script.text({ pbody: true })}
             ${noscript.text({ pbody: true })}
-  
             <!-- app -->
             ${html}
-  
             <!-- appended metaInfo properties -->
             ${style.text({ body: true })}
             ${script.text({ body: true })}
