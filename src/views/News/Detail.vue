@@ -20,8 +20,19 @@
 <script>
 import { getNewsDetail } from '../../api/'
 import { getDate } from '../../libs/tools'
+import { getMetaInfoByPath } from '../../libs/util.js'
+import tdks from '../../../public/tdk.json'
+let currentTdk=getMetaInfoByPath(tdks,'news/detail')
+currentTdk.titleTemplate ='%s - '+currentTdk.title
+
 export default {
   name: 'NewsDetail',
+  metaInfo(){
+    return {
+      ...currentTdk,
+      title:this.data.title
+    }
+  },
   data() {
     return {
       loading: true,

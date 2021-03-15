@@ -564,9 +564,11 @@ export const getMetaInfoByPath = function(array,path) {
                 __dangerouslyDisableSanitizers: ['script'],
                 title:current.title,
                 meta:[{
+                    vmid: 'description',
                     name:'description',
                     content:current.description
                 },{
+                    vmid: 'keywords',
                     name:'keywords',
                     content:current.keywords
                 }],

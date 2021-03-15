@@ -14,7 +14,7 @@ import tdks from '../../public/tdk.json'
 let currentTdk=getMetaInfoByPath(tdks,'index')
 export default {
   name: 'Index',
-   metaInfo:currentTdk ,
+   metaInfo:currentTdk,
   data() {
     return {
       metaInfo:{},

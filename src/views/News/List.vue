@@ -52,8 +52,13 @@
     <script>
 import { getNewsList } from '../../api/'
 import { getDate } from '../../libs/tools'
+import { getMetaInfoByPath } from '../../libs/util.js'
+import tdks from '../../../public/tdk.json'
+let currentTdk=getMetaInfoByPath(tdks,'news/list')
+
 export default {
   name: 'List',
+  metaInfo:currentTdk,
   data() {
     return {
       loading: false,

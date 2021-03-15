@@ -9,6 +9,8 @@ const resolve = dir => {
   return path.join(__dirname, dir)
 }
 module.exports = {
+  indexPath:'defaultIndex.html',
+  outputDir:  target ? `dist/${target}` : 'dist',
   productionSourceMap: false,
   css: {
     loaderOptions: {

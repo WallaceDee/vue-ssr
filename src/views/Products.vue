@@ -10,8 +10,20 @@
 import Oversea from './Products/Oversea'
 import Solution from './Products/Solution'
 import Basic from './Products/Basic'
+import { getMetaInfoByPath } from '../libs/util.js'
+import tdks from '../../public/tdk.json'
+const typeMapping=new Map([[1,'解决方案'],[2,'基础产品'],[3,'涉外业务']])
+let currentTdk=getMetaInfoByPath(tdks,'products')
+currentTdk.titleTemplate ='%s - '+currentTdk.title
+
 export default {
   name:'Products',
+  metaInfo(){
+    return {
+      ...currentTdk,
+      title:typeMapping.get(this.type*1)
+    }
+  },
   components:{
     Basic,
     Solution,

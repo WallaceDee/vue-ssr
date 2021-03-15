@@ -128,9 +128,14 @@
 <script>
 import Swiper from 'swiper'
 import 'swiper/css/swiper.min.css'
+import { getMetaInfoByPath } from '../libs/util.js'
 import { getTeamList,getImagesSortList } from '../api/'
+import tdks from '../../public/tdk.json'
+let currentTdk=getMetaInfoByPath(tdks,'aboutus')
+
 export default {
   name: 'AboutUs',
+  metaInfo:currentTdk,
   data() {
     return {
       loading:false,

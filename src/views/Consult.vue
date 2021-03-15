@@ -40,8 +40,13 @@
 </template>
 <script>
 import { getConsult } from '../api/'
+import { getMetaInfoByPath } from '../libs/util.js'
+import tdks from '../../public/tdk.json'
+let currentTdk=getMetaInfoByPath(tdks,'consult')
+
 export default {
   name: 'Consult',
+  metaInfo:currentTdk,
   data() {
     return {
       loading:false,
