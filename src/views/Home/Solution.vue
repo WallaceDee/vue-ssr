@@ -3,7 +3,7 @@
     <ul class="solution-title-list">
       <li
         @click="slideTo(index)"
-        v-for="(item,index) in list"
+        v-for="(item,index) in current"
         :class="{'active':activeIndex===index}"
         :key="item.id"
       >{{item.label}}</li>
@@ -12,7 +12,7 @@
       <div class="swiper-wrapper">
         <router-link
           class="swiper-slide"
-          v-for="(item,index) in list"
+          v-for="(item,index) in current"
           :key="item.id"
           :to="{
               name: 'Products',
@@ -42,7 +42,7 @@
       </div>
     </div>
     <ul class="solution-list">
-      <li v-for="(item,index) in list" :key="item.id" @click="go2Product(index)">
+      <li v-for="(item,index) in current" :key="item.id" @click="go2Product(index)">
         <span class="cover" v-lazy:background-image="item.cover"></span>
         <div class="info" :style="`height:${height}px`">
           <img v-lazy="item.icon" alt />
@@ -65,16 +65,22 @@ export default {
       activeIndex: 0
     }
   },
+  props: {
+    list: {
+      type: Array,
+      default: () => []
+    }
+  },
   computed: {
     height() {
       return this.$store.state.width / 2
     },
     blockInfo() {
-      return this.$store.state.productMenu[0]
+      return this.list[0]
     },
-    list() {
-      if (this.$store.state.productMenu.length) {
-        return this.$store.state.productMenu[0].children
+    current() {
+       if (this.list.length) {
+        return this.list[0].children
       } else {
         return []
       }

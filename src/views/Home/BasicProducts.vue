@@ -2,7 +2,7 @@
     <Block :value="blockInfo">
       <div class="basic-products" v-lazy:background-image="$store.state.width>640?require('../../assets/images/basic_products_bg.png'):require('../../assets/images/basic_products_bg_m.png')">
         <ul>
-          <li v-for="(item,index) in list" :key="item.id">
+          <li v-for="(item,index) in current" :key="item.id">
             <router-link :to="{
                                 name:'Products',
                                 params:{
@@ -28,32 +28,24 @@ export default {
   data() {
     return {}
   },
+  props: {
+    list: {
+      type: Array,
+      default: () => []
+    }
+  },
   computed: {
     blockInfo() {
-      return this.$store.state.productMenu[1]
+      return this.list[1]
     },
-    list() {
-      if (this.$store.state.productMenu.length) {
-        return this.$store.state.productMenu[1].children
+    current() {
+      if (this.list.length) {
+        return this.list[1].children
       } else {
         return []
       }
     }
   }
-  // ,methods:{
-  //   go2Product(index){
-  //     this.$router.push({
-  //       name:'Products',
-  //       params:{
-  //         type:'2'
-  //       },
-  //       query:{
-  //         activeId:index
-  //       }
-  //     })
-  //   }
-  // },
-  // mounted() {}
 }
 </script>
 <style lang="less" scoped>

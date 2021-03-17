@@ -51,10 +51,13 @@ export default {
       }
     }
   },
+  props: {
+    list: {
+      type: Array,
+      default: () => []
+    }
+  },
   computed: {
-    list(){
-      return this.$store.state.newsList
-    },
     latest() {
       if (this.list.length) {
         return this.list[0]
@@ -67,8 +70,6 @@ export default {
   },
   methods: {
     getDate
-  },
-  mounted() {
   }
 }
 </script>

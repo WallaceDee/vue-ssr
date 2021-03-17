@@ -147,6 +147,12 @@ export default {
       certificateSwiper:null
     }
   },
+  props: {
+    setting: {
+      type: Object,
+      default: () => []
+    }
+  },
   watch: {
     '$route.query.activeId'(val) {
       this.scrollIntoView(`item-${val}`)
@@ -177,10 +183,10 @@ export default {
       }
     },
     description() {
-      return this.$store.state.description
+      return this.setting.description
     },
     data() {
-      return this.$store.state.data
+      return this.setting.data
     }
   },
   methods: {
@@ -211,26 +217,26 @@ export default {
     scrollIntoView(id) {
       document.getElementById(id).scrollIntoView()
     },
-    getData() {
-      this.loading=true
-      getTeamList({
-        page: 1,
-        rows: 99
-      }).then(res => {
-        if (res.status) {
-          this.loading=false
-          this.list = res.data.rows
-          if (this.$store.state.width > 640) {
-            this.mainMember = this.list.filter(item => {
-              return item.status
-            })
-          } else {
-            this.mainMember = JSON.parse(JSON.stringify(this.list))
-          }
-          this.initSwiper()
-        }
-      })
-    },
+    // getData() {
+    //   this.loading=true
+    //   getTeamList({
+    //     page: 1,
+    //     rows: 99
+    //   }).then(res => {
+    //     if (res.status) {
+    //       this.loading=false
+    //       this.list = res.data.rows
+    //       if (this.$store.state.width > 640) {
+    //         this.mainMember = this.list.filter(item => {
+    //           return item.status
+    //         })
+    //       } else {
+    //         this.mainMember = JSON.parse(JSON.stringify(this.list))
+    //       }
+    //       this.initSwiper()
+    //     }
+    //   })
+    // },
     initSwiper() {
       this.$nextTick(() => {
       new Swiper('.member-swiper', {
@@ -243,8 +249,23 @@ export default {
       })
     }
   },
+  async created () {
+    let teamList = await this.$createFetcher(getTeamList)({
+        page: 1,
+        rows: 99
+      })
+    this.list = teamList.data.rows
+    this.mainMember = JSON.parse(JSON.stringify(this.list))
+  },
   mounted() {
-    this.getData()
+    if (this.$store.state.width > 640) {
+      this.mainMember = this.list.filter(item => {
+        return item.status
+      })
+    } else {
+      this.mainMember = JSON.parse(JSON.stringify(this.list))
+    }
+    this.initSwiper()
     this.getCertificatesImages()
     if (this.$route.query.activeId !== undefined) {
       this.scrollIntoView(`item-${this.$route.query.activeId}`)

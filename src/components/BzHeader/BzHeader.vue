@@ -45,14 +45,14 @@
                       v-for="(subItem,index2) in subNav.children"
                       :key="subItem.label"
                     >   <router-link :to="{
-        name: 'Products',
-        params: {
-          type: `${index}-${index1}-${index2}`.split('-')[1] * 1 + 1
-        },
-        query: {
-          activeId: `${index}-${index1}-${index2}`.split('-')[2]
-        }
-      }">{{subItem.label}} </router-link></li>
+                                      name: 'Products',
+                                      params: {
+                                        type: `${index}-${index1}-${index2}`.split('-')[1] * 1 + 1
+                                      },
+                                      query: {
+                                        activeId: `${index}-${index1}-${index2}`.split('-')[2]
+                                      }
+                                    }">{{subItem.label}} </router-link></li>
                   </ul>
                 </li>
               </ul>
@@ -112,9 +112,6 @@ export default {
     }
   },
   watch: {
-    productMenu(val) {
-      this.navs[1].children = val
-    },
     lastIndex(val) {
       let lis = document.querySelectorAll('.nav>ul>li')
           if(val!==-1&&lis.length>val){
@@ -143,6 +140,9 @@ export default {
       return index
     }
   },
+  created(){
+      this.navs[1].children = this.productMenu
+  },
   mounted() {
     this.$nextTick(() => {
       document.body.onscroll = () => {
@@ -170,39 +170,17 @@ export default {
       this.over = false
       this.currentName = name
       this.collapsed = true
-      // this.$router.push()
     },
     onSubMenuClick(name) {
       this.over = false
       this.currentName = name
       this.collapsed = true
-      // this.$router.push({
-      //   name: 'Products',
-      //   params: {
-      //     type: name.split('-')[1] * 1 + 1
-      //   },
-      //   query: {
-      //     activeId: name.split('-')[2]
-      //   }
-      // })
     },
     onClick(index) {
       this.currentName = index.toString()
       if (!this.navs[index].children || !this.navs[index].children.length) {
         this.collapsed = true
       }
-      // if (index !== 1) {
-      //   return {
-      //     name: this.navs[index].name
-      //   }
-      // } else {
-      //   return {
-      //     name: this.navs[index].name,
-      //     params: {
-      //       type: 1
-      //     }
-      //   }
-      // }
     },
     onMouseleave() {
       let lis = document.querySelectorAll('.nav>ul>li')

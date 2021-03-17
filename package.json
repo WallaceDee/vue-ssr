@@ -10,8 +10,8 @@
     "build:client": "vue-cli-service build",
     "build:server": "cross-env WEBPACK_TARGET=node vue-cli-service build --mode server",
     "build:linux": "npm run build:client && npm run build:server && pm2 restart bz-home-ssr",
-    "build:win": "npm run build:server && move dist\\vue-ssr-server-bundle.json bundle && npm run build:client && move bundle dist\\vue-ssr-server-bundle.json && npm start",
-    "prod":"npm run build:linux"
+    "build:win": "npm run build:server && npm run build:client && npm start",
+    "prod": "npm run build:linux"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -31,6 +31,7 @@
     "vue-meta": "^2.4.0",
     "vue-router": "^3.1.5",
     "vue-server-renderer": "^2.6.12",
+    "vue-ssr-prefetcher": "^0.4.0",
     "vuedraggable": "^2.23.2",
     "vuex": "^3.1.2",
     "x-photoswipe": "^4.1.3-rc.1"

@@ -10,8 +10,6 @@
         ></div>
       </div>
       <div class="swiper-pagination" v-if="list.length>1"></div>
-      <!-- <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>-->
     </div>
     <router-link :to="{name:'Consult'}" class="get-consult-btn" >获取解决方案</router-link>
   </div>
@@ -19,49 +17,37 @@
 <script>
 import Swiper from 'swiper'
 import 'swiper/css/swiper.min.css'
-import { getBannerList } from '@/api/'
 export default {
   name: 'Banner',
   data() {
     return {
-      list: []
+      // list: []
+    }
+  },
+  props: {
+    list: {
+      type: Array,
+      default: () => []
     }
   },
   methods: {
-    // go2Consult() {
-    //   this.$router.push({
-    //     name: 'Consult'
-    //   })
-    // },
     init() {
+      this.$nextTick(() => {
       new Swiper('.banner-wrapper', {
         loop: true,
         effect: 'fade',
         autoplay: {
           delay: 5000 //1秒切换一次
         },
-        // 如果需要分页器
         pagination: {
           el: '.swiper-pagination'
         }
-        // ,navigation: {
-        //   nextEl: ".swiper-button-next",
-        //   prevEl: ".swiper-button-prev"
-        // }
+      })
       })
     }
   },
   mounted() {
-    getBannerList().then(res => {
-      if (res.status) {
-        if (res.status) {
-          this.list = res.data
-          setTimeout(() => {
-            this.init()
-          }, 0)
-        }
-      }
-    })
+    this.init()
   }
 }
 </script>

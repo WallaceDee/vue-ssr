@@ -46,7 +46,7 @@
       </ul>
       <Button v-if="!allLoaded" class="more-btn" @click.native="loadMore">点击加载更多</Button>
     </div>
-    <Page :total="total" :current="page" size="small" @on-change="onPageChange"></Page>
+    <Page :total="total" :current.sync="page" size="small" @on-change="onPageChange"></Page>
   </Title>
 </template>
     <script>
@@ -62,7 +62,6 @@ export default {
   data() {
     return {
       loading: false,
-      page: 1,
       pageSize: 10,
       list: [],
       total: 0,
@@ -70,6 +69,14 @@ export default {
     }
   },
   computed: {
+    page:{
+    get: function () {
+      return this.$route.params.page*1||1
+    },
+    set: function (newValue) {
+    this.$route.params.page=newValue
+    }
+    },
     wechatQrCode() {
       return this.$store.state.wechatQrCode
     },
@@ -98,17 +105,14 @@ export default {
       this.page++
       this.getData(1)
     },
-    // go2Detail(id) {
-    //   this.$router.push({
-    //     name: 'NewsDetail',
-    //     params: {
-    //       id
-    //     }
-    //   })
-    // },
     onPageChange(page) {
-      this.page = page
-      this.getData()
+      this.$router.replace({
+        name:'NewsList',
+        params:{
+          page
+        }
+      })
+      this.getData(1)
     },
     getDate,
     getData(type) {
@@ -124,7 +128,7 @@ export default {
           } else {
             this.total = res.data.total
             if (type) {
-              this.list = this.list.concat(res.data.rows)
+             this.list = this.list.concat(res.data.rows)
               this.$nextTick(() => {
               this.allLoaded = this.list.length >= this.total
               })
@@ -137,8 +141,15 @@ export default {
       })
     }
   },
+  async created () {
+    let newsList = await this.$createFetcher(getNewsList)({
+        page: this.$route.params.page,
+        rows: this.pageSize
+      })
+    this.list=newsList.data.rows
+    this.total=newsList.data.total
+  },
   mounted() {
-    this.getData()
   }
 }
 </script>

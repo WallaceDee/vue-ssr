@@ -68,16 +68,16 @@ export default {
       }
       return srcArray
     },
-    getDate,
-    getData() {
-      this.loading = true
-      getNewsDetail({
+    getDate
+  },
+  async created () {
+    let newsDetail = await this.$createFetcher(getNewsDetail)({
         id: this.id
-      }).then(res => {
-        if (res.status) {
-          this.data = res.data
-          this.loading = false
-          this.$nextTick(() => {
+      })
+     this.data = newsDetail.data
+  },
+  mounted(){
+              this.$nextTick(() => {
             let previewerList = []
             document
               .querySelector('.main')
@@ -94,14 +94,12 @@ export default {
                   false
                 )
               })
+              this.loading=false
             this.previewerList = previewerList
           })
-        }
-      })
-    }
   },
   activated() {
-    this.getData()
+    // this.getData()
     if (document.body.clientWidth < 640) {
       document.querySelector('.main').classList.add('mobile')
     } else {

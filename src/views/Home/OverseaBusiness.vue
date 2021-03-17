@@ -26,6 +26,12 @@ export default {
       list: []
     }
   },
+  props: {
+    blockInfo: {
+      type: Object,
+      default: () => []
+    }
+  },
   watch: {
     '$store.state.width'(val) {
       if (val > 640) {
@@ -38,9 +44,6 @@ export default {
   computed: {
     span() {
       return 24 / this.col
-    },
-    blockInfo() {
-      return this.$store.state.productMenu[2]
     }
   },
   methods: {
@@ -52,8 +55,10 @@ export default {
       })
     }
   },
-  mounted() {
+  created(){
     this.getImages()
+  },
+  mounted() {
     if (document.body.clientWidth > 640) {
       this.col = 8
     } else {

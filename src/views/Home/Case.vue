@@ -41,20 +41,26 @@
 <script>
 import Swiper from 'swiper'
 import 'swiper/css/swiper.min.css'
-import { getCasesList } from '../../api/'
+
 export default {
   name: 'Case',
   data() {
     return {
       swiper:null,
       activeIndex: 0,
-      list: [],
+      // list: [],
       blockInfo: {
         subTitle: 'CUSTOMER CASES',
         label: '用户案例',
         description: '基于企业市场策略的专利解决方案',
         backgroundColor:'#f8f8f8'
       }
+    }
+  },
+  props: {
+    list: {
+      type: Array,
+      default: () => []
     }
   },
   computed: {
@@ -73,14 +79,6 @@ export default {
     formatZero(num, len) {
       if (String(num).length > len) return num
       return (Array(len).join(0) + num).slice(-len)
-    },
-    getCasesList() {
-      getCasesList().then(res => {
-        if (res.status) {
-          this.list = res.data
-          this.init()
-        }
-      })
     },
     init() {
       this.$nextTick(() => {
@@ -101,8 +99,13 @@ export default {
       })
     }
   },
-  mounted() {
-    this.getCasesList()
+  //  async created () {
+  //   let casesList = await this.$createFetcher(getCasesList)()
+  //   console.log(casesList)
+  //   this.list = casesList.data
+  // },
+  mounted(){
+     this.init()
   }
 }
 </script>

@@ -68,29 +68,23 @@ export default {
       return (
         color.toLowerCase() === '#fff' || color.toLowerCase() === '#ffffff'
       )
-    },
-    getData() {
-      this.loading=true
-      getProductList({
-        type: this.type,
-        rows: 99
-      }).then(res => {
-        if (res.status) {
-          this.loading=false
-          this.list = res.data.rows
-          this.$nextTick(() => {
-           if (this.$route.query.activeId!==undefined) {
-              this.scrollIntoView(`item-${this.$route.query.activeId}`)
-            }else{
-              document.scrollingElement.scrollTop = 0
-            }
-          })
-        }
-      })
     }
   },
+  async created () {
+    let productList = await this.$createFetcher(getProductList)({
+        type: this.type,
+        rows: 99
+      })
+    this.list=productList.data.rows
+  },
   mounted() {
-    this.getData()
+    this.$nextTick(() => {
+      if (this.$route.query.activeId !== undefined) {
+        this.scrollIntoView(`item-${this.$route.query.activeId}`)
+      } else {
+        document.scrollingElement.scrollTop = 0
+      }
+    })
   }
 }
 </script>

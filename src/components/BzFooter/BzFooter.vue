@@ -100,7 +100,8 @@
   </div>
 </template>
 <script>
-import { getConsult,getNewsList } from '../../api/'
+import { getConsult } from '../../api/'
+
 export default {
   name: 'BzFooter',
   props: {
@@ -108,13 +109,17 @@ export default {
       type: Object,
       default: () => {}
     },
-    productMenu: {
+      productMenu: {
+      type: Array,
+      default: () => []
+    },newsList: {
       type: Array,
       default: () => []
     }
   },
   data() {
     return {
+      sitemap:[],
       loading:false,
       hasModalOpen: false,
       form: {
@@ -164,37 +169,12 @@ export default {
       ]
     }
   },
-  // watch:{
-  //   list(val){
-  //     this.$set(this.defaultSitemap,0,val)
-  //     this.sitemap=this.productMenu.concat(this.defaultSitemap)
-  // }
-  // },
   computed: {
     visible() {
       return (this.$store.state.width > 640 || this.$route.name === 'Home')&&!this.$route.meta.hideFooter
-    },
-    sitemap() {
-      this.$set(this.defaultSitemap[0],'children',this.$store.state.newsList)
-      return this.productMenu.concat(this.defaultSitemap)
     }
   },
   methods: {
-  getNewsList() {
-      getNewsList({
-        page: 1,
-        rows: 6
-      }).then(res => {
-        if (res.status) {
-          res.data.rows.map(item => {
-            item.label=item.title
-            item.name='NewsList'
-          })
-          this.list = res.data.rows
-          this.$store.commit('setNewsList', this.list)
-        }
-      })
-    },
     onValidate(prop, status, error) {
       if (!status && !this.hasModalOpen) {
         this.hasModalOpen = true
@@ -263,6 +243,15 @@ export default {
       }
     }
   },
+   created() {
+  this.newsList.map(item => {
+    item.label=item.title
+    item.name='NewsList'
+  })
+  this.$store.commit('setNewsList',  this.newsList)
+  this.defaultSitemap[0].children= this.newsList
+    this.sitemap=this.productMenu.concat(this.defaultSitemap)
+  },
   mounted() {
     let cityInfo=document.createElement('script')
     cityInfo.src='https://pv.sohu.com/cityjson?ie=utf-8'
@@ -271,7 +260,6 @@ export default {
     }
     cityInfo.id='cityInfo'
     document.body.appendChild(cityInfo)
-    this.getNewsList()
     this.$nextTick(() => {
       document.querySelectorAll('.footer input').forEach(function(inputEl) {
         if (inputEl.value !== '') {

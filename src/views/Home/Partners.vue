@@ -54,8 +54,10 @@ export default {
       })
     }
   },
-  mounted() {
+  created(){
     this.getImages()
+  },
+  mounted() {
     if (document.body.clientWidth > 640) {
       this.col = 6
     } else {

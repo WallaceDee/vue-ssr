@@ -29,7 +29,7 @@ const routes = [
       component: News,
       redirect:'news/list',
       children:[ {
-        path:'list',
+        path:'list/:page?',
         name: 'NewsList',
         component: NewsList
       },{
