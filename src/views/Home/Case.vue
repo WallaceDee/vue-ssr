@@ -111,7 +111,6 @@ export default {
 </script>
 <style lang="less">
 .case {
-
   .main {
     position: relative;
     .case-swiper {

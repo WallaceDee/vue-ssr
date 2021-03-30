@@ -150,7 +150,7 @@ export default {
   props: {
     setting: {
       type: Object,
-      default: () => []
+      default: () => {}
     }
   },
   watch: {
@@ -273,7 +273,7 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .about-us {
    .certificate.content{
      position: relative;

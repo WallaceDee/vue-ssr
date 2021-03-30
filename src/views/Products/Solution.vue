@@ -1,5 +1,5 @@
 <template>
-  <div class="basic">
+  <div class="solution">
     <Title :title="title" style="min-height:600px">
       <Spin fix v-if="loading"></Spin>
       <div :id="`item-${index}`" class="solution-item" v-for="(item,index) in list" :key="item.id">
@@ -78,7 +78,8 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
+.solution{
 .solution-item {
   .content {
     // background-repeat: no-repeat;
@@ -135,8 +136,9 @@ export default {
     }
   }
 }
-
+}
 @media screen and (min-width: 641px) {
+  .solution{
   .solution-item {
     min-width: 1180px;
     margin-bottom: 50px;
@@ -234,8 +236,10 @@ export default {
       }
     }
   }
+  }
 }
 @media screen and (min-width: 1200px) {
+  .solution{
   .solution-item {
     .content {
       > div:last-child {
@@ -259,8 +263,10 @@ export default {
       }
     }
   }
+  }
 }
 @media screen and (min-width: 1440px) {
+  .solution{
   .solution-item {
     .content {
       > div:last-child {
@@ -285,8 +291,10 @@ export default {
       }
     }
   }
+  }
 }
 @media screen and (max-width: 640px) {
+  .solution{
   .solution-item {
     .content {
       // background-repeat: no-repeat;
@@ -346,6 +354,7 @@ export default {
         }
       }
     }
+  }
   }
 }
 </style>

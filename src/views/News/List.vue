@@ -1,5 +1,5 @@
 <template>
-  <Title :title="{label:'专利情报',subTitle:'NEWS'}">
+  <Title :title="{label:'专利情报',subTitle:'NEWS'}" class="news-list">
     <Spin fix v-if="loading"></Spin>
     <div class="content">
       <div class="top">
@@ -49,7 +49,7 @@
     <Page :total="total" :current.sync="page" size="small" @on-change="onPageChange"></Page>
   </Title>
 </template>
-    <script>
+<script>
 import { getNewsList } from '../../api/'
 import { getDate } from '../../libs/tools'
 import { getMetaInfoByPath } from '../../libs/util.js'
@@ -59,6 +59,12 @@ let currentTdk=getMetaInfoByPath(tdks,'news/list')
 export default {
   name: 'List',
   metaInfo:currentTdk,
+  props: {
+    setting: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data() {
     return {
       loading: false,
@@ -78,7 +84,7 @@ export default {
     }
     },
     wechatQrCode() {
-      return this.$store.state.wechatQrCode
+      return this.setting.wechatQrCode
     },
     latest() {
       if (this.list.length) {
@@ -102,7 +108,12 @@ export default {
       }
     },
     loadMore() {
-      this.page++
+        this.$router.replace({
+        name:'NewsList',
+        params:{
+          page:this.page+1
+        }
+      })
       this.getData(1)
     },
     onPageChange(page) {
@@ -112,7 +123,7 @@ export default {
           page
         }
       })
-      this.getData(1)
+      this.getData()
     },
     getDate,
     getData(type) {
@@ -153,7 +164,8 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
+.news-list{
 .content {
   overflow: auto;
   > ul {
@@ -224,6 +236,7 @@ export default {
     }
   }
   .latest {
+    display:block;
     border-radius: 3px;
     .info {
       &::after {
@@ -250,7 +263,9 @@ export default {
     }
   }
 }
+}
 @media screen and (min-width: 641px) {
+.news-list{
   .more-btn {
     display: none;
   }
@@ -440,7 +455,10 @@ export default {
     }
   }
 }
+}
 @media screen and (max-width: 640px) {
+.news-list{
+
   .more-btn {
     margin: 15px auto;
     display: block;
@@ -550,6 +568,7 @@ export default {
         }
       }
     }
+  }
   }
 }
 </style>

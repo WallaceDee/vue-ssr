@@ -37,7 +37,7 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .block .content {
   padding-top: 50px;
   > h1,

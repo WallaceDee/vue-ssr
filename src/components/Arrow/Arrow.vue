@@ -20,7 +20,7 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
     .arrow {
       outline: none;
       cursor: pointer;

@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-Vue.use(Vuex)
+let isinstallKeep = false
+function installKeep() {
+    if(isinstallKeep) return
+    isinstallKeep = true
+    Vue.use(Vuex)
+}
+installKeep()
 export function createStore() {
   return new Vuex.Store({
     state: {

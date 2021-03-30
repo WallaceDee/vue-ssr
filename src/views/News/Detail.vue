@@ -1,7 +1,8 @@
 <template>
+<div class="news-detail">
   <Title :title="{label:'专利情报',subTitle:'NEWS'}">
     <Spin fix v-if="loading"></Spin>
-    <div class="news-detail">
+    <div class="news-detail-wrapper">
       <div class="content">
         <div class="left">
           <h1>{{getDate(data.createTime,'yyyymmdd','-')}}</h1>
@@ -16,6 +17,7 @@
     </div>
     <previewer v-if="!loading" ref="previewer" :list="previewerList"></previewer>
   </Title>
+</div>
 </template>
 <script>
 import { getNewsDetail } from '../../api/'
@@ -109,19 +111,9 @@ export default {
   }
 }
 </script>
-<style lang="less" >
-.main.mobile {
-  img {
-    width: 100%;
-    display: block;
-  }
-  .article-container *{
-    word-break: break-all;
-  }
-}
-</style>
-<style lang="less" scoped>
-.news-detail {
+<style lang="less">
+.news-detail{
+.news-detail-wrapper {
   .content {
     min-height: 100vh;
   }
@@ -134,8 +126,19 @@ export default {
     }
   }
 }
+.main.mobile {
+  img {
+    width: 100%;
+    display: block;
+  }
+  .article-container *{
+    word-break: break-all;
+  }
+}
+}
 @media screen and (min-width: 641px) {
-  .news-detail {
+  .news-detail{
+  .news-detail-wrapper {
     .content {
       width: 1180px;
       margin-right: auto;
@@ -161,8 +164,10 @@ export default {
     }
   }
 }
+}
 @media screen and (max-width: 640px) {
-  .news-detail {
+  .news-detail{
+  .news-detail-wrapper {
     .content {
       padding: 0 25px 20px 25px;
       .left {
@@ -182,6 +187,7 @@ export default {
         }
       }
     }
+  }
   }
 }
 </style>

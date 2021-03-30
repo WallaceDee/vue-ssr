@@ -36,7 +36,7 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .products{
   .banner{
     width: 100%;

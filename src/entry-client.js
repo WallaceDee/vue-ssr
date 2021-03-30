@@ -3,7 +3,7 @@ import { createApp } from './main'
 import { clientPlugin } from 'vue-ssr-prefetcher'
 Vue.use(clientPlugin)
 // 客户端特定引导逻辑……
-const { app, router, store } = createApp()
+const { app, router } = createApp()
 router.onReady(() => {
     // 3. Deconstructing `$$selfStore` from `window.__INITIAL_STATE__`
     const { $$selfStore } = window.__INITIAL_STATE__

@@ -88,9 +88,9 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
+.basic{
 .basic-item {
-
   position: relative;
   .content {
     h1,
@@ -108,7 +108,9 @@ export default {
     }
   }
 }
+}
 @media screen and (min-width: 641px) {
+  .basic{
   .basic-item {
       min-width: 1180px;
     overflow: hidden;
@@ -192,7 +194,9 @@ export default {
     }
   }
 }
+}
 @media screen and (max-width: 640px) {
+  .basic{
   .basic-item {
     width: 100%;
     min-width: auto;
@@ -294,5 +298,6 @@ export default {
       }
     }
   }
+}
 }
 </style>

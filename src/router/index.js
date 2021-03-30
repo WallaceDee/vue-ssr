@@ -9,9 +9,15 @@ import AboutUs from '../views/AboutUs.vue'
 import Consult from '../views/Consult.vue'
 import Router from 'vue-router'
 import Meta from 'vue-meta'
+let isinstallKeep = false
+function installKeep() {
+    if(isinstallKeep) return
+    isinstallKeep = true
+    Vue.use(Router)
+    Vue.use(Meta)
+}
+installKeep()
 
-Vue.use(Router)
-Vue.use(Meta)
 const routes = [
   {
     path: '/',
@@ -52,7 +58,6 @@ const routes = [
     }]
   }
 ]
-
 
 export function createRouter(){
   return new Router({

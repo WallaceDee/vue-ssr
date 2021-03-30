@@ -12,7 +12,7 @@ import { getSetting, getProductMenu,getNewsList } from '../api/'
 import { getMetaInfoByPath } from '../libs/util.js'
 import tdks from '../../public/tdk.json'
 let currentTdk=getMetaInfoByPath(tdks,'index')
-const loadData=async ()=>{
+const loadData=async () => {
  let setting= await getSetting()
   let productMenu= await getProductMenu()
   let newsList= await getNewsList({

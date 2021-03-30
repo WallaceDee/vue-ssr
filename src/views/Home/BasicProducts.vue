@@ -11,7 +11,7 @@
                                 query:{
                                   activeId:index
                                 }
-                              }"> 
+                              }">
               <span v-lazy:background-image="item.icon"></span>
               <h3>{{item.label}}</h3>
               <pre>{{item.description}}</pre>
@@ -48,7 +48,7 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .basic-products {
   background-size: cover;
   overflow: auto;
@@ -191,7 +191,6 @@ export default {
       width: 330px;
       li {
         width: 150px;
-
       }
     }
   }

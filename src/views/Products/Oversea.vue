@@ -79,7 +79,8 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
+.overseas{
 .oversea-item {
   padding-top: 40px 0;
   h1 {
@@ -96,6 +97,7 @@ export default {
     }
   }
 }
+}
 @media screen and (min-width: 641px) {
   .overseas {
     .banner-content {
@@ -107,7 +109,6 @@ export default {
         width: 100%;
       }
     }
-  }
   .oversea-item {
     padding: 30px 0;
     &:nth-child(odd) {
@@ -154,6 +155,7 @@ export default {
       }
     }
   }
+  }
 }
 @media screen and (max-width: 640px) {
   .overseas {
@@ -163,7 +165,6 @@ export default {
         width: 100%;
       }
     }
-  }
   .oversea-item {
     margin-bottom: 20px;
     > div:first-child {
@@ -201,6 +202,7 @@ export default {
         display: none;
       }
     }
+  }
   }
 }
 </style>

@@ -9,10 +9,12 @@ const resolve = dir => {
   return path.join(__dirname, dir)
 }
 module.exports = {
-  indexPath:'defaultIndex.html',
-  outputDir:  target ? `dist/${target}` : 'dist',
+  indexPath: 'defaultIndex.html',
+  outputDir: `dist/${target}`,
   productionSourceMap: false,
   css: {
+    extract: true, // 是否使用css分离插件 ExtractTextPlugin
+    sourceMap: false, // 开启 CSS source maps?
     loaderOptions: {
       less: {
         javascriptEnabled: true
@@ -24,44 +26,44 @@ module.exports = {
       preProcessor: 'less',
       patterns: [path.resolve(__dirname, 'src/assets/less/variable.less')] // 引入全局样式变量
     }
-},
-transpileDependencies:[
-  'dom7',
-  '_dom7@2.1.3@dom7',
-  '_swiper@5.3.8@swiper',
-  'swiper'
-],
-configureWebpack: () => ({
-  // 将 entry 指向应用程序的 server / client 文件
-  entry: `./src/entry-${target}.js`,
-  // 对 bundle renderer 提供 source map 支持
-  devtool: 'source-map',
-  target: TARGET_NODE ? "node" : "web",
-  node: TARGET_NODE ? undefined : false,
-  output: {
-    libraryTarget: TARGET_NODE ? "commonjs2" : undefined
   },
-  // https://webpack.js.org/configuration/externals/#function
-  // https://github.com/liady/webpack-node-externals
-  // 外置化应用程序依赖模块。可以使服务器构建速度更快，
-  // 并生成较小的 bundle 文件。
-  externals: TARGET_NODE
-    ? nodeExternals({
+  transpileDependencies: [
+    'dom7',
+    '_dom7@2.1.3@dom7',
+    '_swiper@5.3.8@swiper',
+    'swiper'
+  ],
+  configureWebpack: (config) => ({
+
+    // 将 entry 指向应用程序的 server / client 文件
+    entry: `./src/entry-${target}.js`,
+    // 对 bundle renderer 提供 source map 支持
+    devtool: 'source-map',
+    target: TARGET_NODE ? "node" : "web",
+    node: TARGET_NODE ? undefined : false,
+    output: {
+      libraryTarget: TARGET_NODE ? "commonjs2" : undefined
+    },
+    externals: TARGET_NODE
+      ? nodeExternals({
         // 不要外置化 webpack 需要处理的依赖模块。
         // 你可以在这里添加更多的文件类型。例如，未处理 *.vue 原始文件，
         // 你还应该将修改 `global`（例如 polyfill）的依赖模块列入白名单
-        allowlist: [/\.css$/]
+        allowlist: /\.css$/,
       })
-    : undefined,
-  plugins: [TARGET_NODE ? new VueSSRServerPlugin() : new VueSSRClientPlugin()]
-}),
+      : undefined,
+    optimization: { splitChunks: TARGET_NODE ? false : undefined },
+    plugins: TARGET_NODE ?
+      [new VueSSRServerPlugin()] :
+      [new VueSSRClientPlugin()]
+  }),
   chainWebpack: config => {
-    
+
     config.output.chunkFilename(`js/bz-[name].[chunkhash:8].js`)
     config.output.filename('js/bz-[name].js')
 
     config.resolve.alias.set('@', resolve('src'))
-
+    
     config.module
       .rule('eslint')
       .pre()

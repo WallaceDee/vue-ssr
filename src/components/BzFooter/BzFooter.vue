@@ -112,7 +112,8 @@ export default {
       productMenu: {
       type: Array,
       default: () => []
-    },newsList: {
+    },
+    newsList: {
       type: Array,
       default: () => []
     }
@@ -243,14 +244,14 @@ export default {
       }
     }
   },
-   created() {
-  this.newsList.map(item => {
-    item.label=item.title
-    item.name='NewsList'
-  })
-  this.$store.commit('setNewsList',  this.newsList)
-  this.defaultSitemap[0].children= this.newsList
-    this.sitemap=this.productMenu.concat(this.defaultSitemap)
+  created() {
+    this.newsList.map(item => {
+      item.label=item.title
+      item.name='NewsList'
+    })
+    this.$store.commit('setNewsList',this.newsList)
+    this.defaultSitemap[0].children= this.newsList
+      this.sitemap=this.productMenu.concat(this.defaultSitemap)
   },
   mounted() {
     let cityInfo=document.createElement('script')

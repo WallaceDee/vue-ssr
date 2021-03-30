@@ -1,13 +1,23 @@
 <template>
-  <div class="news">
+  <div class="news-content">
     <div class="banner"></div>
     <keep-alive>
-      <router-view />
+      <router-view :setting="setting"/>
     </keep-alive>
   </div>
 </template>
-<style lang="less" scoped>
-.news {
+<script>
+export default {
+  props: {
+    setting: {
+      type: Object,
+      default: () => {}
+    }
+  }
+  }
+</script>
+<style lang="less">
+.news-content {
   background-color: #f8f8f8;
   .banner {
     width: 100%;
@@ -17,7 +27,7 @@
   }
 }
 @media screen and (min-width: 641px) {
-  .news {
+  .news-content {
     padding-bottom: 100px;
     overflow: hidden;
     min-width: 1180px;
@@ -28,7 +38,7 @@
   }
 }
 @media screen and (max-width: 640px) {
-  .news {
+  .news-content {
     .banner {
       height: 160px;
     }

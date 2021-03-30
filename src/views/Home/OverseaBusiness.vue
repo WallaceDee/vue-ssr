@@ -67,14 +67,16 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
-span {
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
-  background-size: cover;
-  background-position: center;
+<style lang="less">
+.oversea-business {
+  span {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+    background-size: cover;
+    background-position: center;
+  }
 }
 @media screen and (min-width: 641px) {
   .oversea-business {
@@ -88,13 +90,11 @@ span {
       width: 1180px;
       margin: 0 auto;
     }
-  }
-
-  span {
+    span {
     width: 95px;
     height: 50px;
-
     margin-bottom: 20px;
+    }
   }
 }
 @media screen and (max-width: 640px) {

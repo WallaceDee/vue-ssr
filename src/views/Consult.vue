@@ -29,13 +29,13 @@
             <img src="../assets/images/icon_tel.svg" width="24px" alt />
           </div>
           <div>
-            <h1>{{$store.state.tel}}</h1>
-            <p>{{$store.state.serviceHours}}</p>
+            <h1>{{setting.tel}}</h1>
+            <p>{{setting.serviceHours}}</p>
           </div>
         </div>
       </Card>
     </div>
-    <p class="copyright" v-html="$store.state.copyright"></p>
+    <p class="copyright" v-html="setting.copyright"></p>
   </div>
 </template>
 <script>
@@ -69,6 +69,12 @@ export default {
           trigger: 'blur'
         }
       }
+    }
+  },
+  props: {
+    setting: {
+      type: Object,
+      default: () => {}
     }
   },
   methods: {

@@ -18,7 +18,7 @@ import Case from './Home/Case'
 import Partners from './Home/Partners'
 import News from './Home/News'
 import { getCasesList,getBannerList } from '../api/'
-const loadData=async ()=>{
+const loadData=async () => {
  let casesList= await getCasesList()
  let bannerList= await getBannerList()
   return { casesList,bannerList }

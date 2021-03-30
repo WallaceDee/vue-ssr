@@ -66,13 +66,15 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
-span {
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-  background-size: cover;
-  background-position: center;
+<style lang="less">
+.partners {
+  span {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    background-size: cover;
+    background-position: center;
+  }
 }
 @media screen and (min-width: 641px) {
   .partners {
@@ -83,12 +85,11 @@ span {
       width: 1160px;
       margin: 0 auto;
     }
-  }
-
-  span {
-width: 180px;
-    height: 65px;
-    margin-bottom: 45px;
+    span {
+      width: 180px;
+      height: 65px;
+      margin-bottom: 45px;
+    }
   }
 }
 @media screen and (max-width: 640px) {
