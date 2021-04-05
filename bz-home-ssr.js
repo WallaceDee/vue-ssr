@@ -3,7 +3,7 @@ const Koa = require("koa");
 const path = require("path");
 const koaStatic = require('koa-static')
 const app = new Koa();
-
+const LRU = require('lru-cache')
 const resolve = file => path.resolve(__dirname, file);
 // 开放dist目录
 app.use(koaStatic(resolve('./dist/client')))
@@ -61,14 +61,25 @@ function renderToString(context) {
   });
 }
 // 第 3 步：添加一个中间件来处理所有请求
+const microCache = new LRU({
+  max: 100,
+  maxAge: 1000*60 // 重要提示：条目在 1 秒后过期。
+})
 app.use(async (ctx, next) => {
+  const hit = microCache.get(ctx.url)
+  if (hit) {
+    console.log('读取缓存')
+    ctx.body =hit
+    return false
+  }else{
   const context = {
-    title: "ssr test",
     url: ctx.url
-  };
+  }
   // 将 context 数据渲染为 HTML
   const html = await renderToString(context);
+  microCache.set(ctx.url, html)
   ctx.body = html;
+  }
 });
 
 const port = 89;

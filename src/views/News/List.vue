@@ -3,7 +3,7 @@
     <Spin fix v-if="loading"></Spin>
     <div class="content">
       <div class="top">
-        <router-link class="latest" :to="{
+        <router-link id="item-0" class="latest" :to="{
             name: 'NewsDetail',
             params: {
               id:latest.id
@@ -25,6 +25,7 @@
       </div>
       <ul>
         <li :id="`item-${index}`" v-for="(item,index) in list" v-if="index">
+        {{index}}
         <router-link :to="{
             name: 'NewsDetail',
             params: {

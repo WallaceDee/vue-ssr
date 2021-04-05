@@ -68,13 +68,13 @@ export default {
     this.list=productList.data.rows
   },
   mounted() {
-    this.$nextTick(() => {
+   setTimeout(() => {
       if (this.$route.query.activeId !== undefined) {
         this.scrollIntoView(`item-${this.$route.query.activeId}`)
       } else {
         document.scrollingElement.scrollTop = 0
       }
-    })
+    },100)
   }
 }
 </script>
